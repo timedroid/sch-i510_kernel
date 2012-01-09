@@ -707,3 +707,7 @@ out:
 	return ret;
 }
 device_initcall(logger_init);
+
+MODULE_AUTHOR("Robert Love <rlove@google.com>");
+MODULE_LICENSE("GPL v2");
+MODULE_DESCRIPTION("A Logging Subsystem");
