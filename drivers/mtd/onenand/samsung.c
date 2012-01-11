@@ -41,7 +41,13 @@ enum soc_type {
 	TYPE_S5PC110,
 };
 
+
+/* START OF DEVICE SPECIFIC PARTITION LAYOUT */
+
 #include "samsung_charge.h"
+
+/* END OF DEVICE SPECIFIC PARTITION LAYOUT */
+
 
 #define ONENAND_ERASE_STATUS		0x00
 #define ONENAND_MULTI_ERASE_SET		0x01
