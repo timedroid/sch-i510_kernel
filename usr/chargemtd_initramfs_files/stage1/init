@@ -2,6 +2,7 @@
 export _PATH="$PATH"
 export PATH=/stage1
 
+busybox mount -o remount,rw /
 busybox cd /
 busybox date >>boot.txt
 exec >>boot.txt 2>&1
