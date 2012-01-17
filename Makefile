@@ -353,7 +353,12 @@ KBUILD_CFLAGS   := -Wall -Wundef -Wstrict-prototypes -Wno-trigraphs \
 		   -fno-strict-aliasing -fno-common \
 		   -Werror-implicit-function-declaration \
 		   -Wno-format-security \
-		   -fno-delete-null-pointer-checks
+		   -fno-delete-null-pointer-checks \
+		   --param l2-cache-size=256 \
+		   --param l1-cache-size=32 \
+		   --param simultaneous-prefetches=6 \
+		   --param prefetch-latency=400 \
+		   --param l1-cache-line-size=32
 
 KBUILD_AFLAGS   := -D__ASSEMBLY__
 
