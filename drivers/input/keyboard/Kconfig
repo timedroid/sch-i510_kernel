@@ -463,15 +463,6 @@ config KEYPAD_S3C_CHIEF
         Chief Product
 endif
 
-config KEYPAD_S3C_INT
-        bool "Port0 : [KEYPAD : INT(8x8)]"
-        depends on KEYPAD_S3C
-        help
-          Say Y here if you want to use the S3C SMDK keypad.(8x8)
-
-          To compile this driver as a module, choose M here: the
-          module will be called s3c-keypad.
-
 endif
 
 

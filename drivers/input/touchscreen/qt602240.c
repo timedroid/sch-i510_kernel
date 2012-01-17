@@ -3024,6 +3024,8 @@ void TSP_forced_release(void)
 		input_report_abs(qt602240->input_dev, ABS_MT_TOUCH_MAJOR, fingerInfo[i].pressure);
 		input_report_abs(qt602240->input_dev, ABS_MT_WIDTH_MAJOR, fingerInfo[i].size);   
 		input_report_abs(qt602240->input_dev, ABS_MT_TRACKING_ID, i);
+		input_report_abs(qt602240->input_dev, ABS_PRESSURE, fingerInfo[i].pressure);
+		input_report_key(qt602240->input_dev, BTN_TOUCH, 0);
 		input_mt_sync(qt602240->input_dev);
 
 		fingerInfo[i].pressure = -1;
@@ -3332,12 +3334,19 @@ void  get_message(void)
 			input_report_abs(qt602240->input_dev, ABS_MT_TOUCH_MAJOR, fingerInfo[i].pressure);
 			input_report_abs(qt602240->input_dev, ABS_MT_WIDTH_MAJOR, fingerInfo[i].size);
 			input_report_abs(qt602240->input_dev, ABS_MT_TRACKING_ID, i); // i = Finger ID 
+			input_report_abs(qt602240->input_dev, ABS_MT_TOUCH_MAJOR, fingerInfo[i].pressure);
+
+			if (fingerInfo[i].pressure == 0) {
+				input_report_key(qt602240->input_dev, BTN_TOUCH, 0);
+				fingerInfo[i].pressure = -1;
+			}
+			else
+				input_report_key(qt602240->input_dev, BTN_TOUCH, 1);
+
 			input_mt_sync(qt602240->input_dev);
 
-			if (fingerInfo[i].pressure == 0)
-				fingerInfo[i].pressure = -1;
-			else if (fingerInfo[i].pressure > 0)
-				one_touch_input_flag++;//hugh 0312
+			//else if (fingerInfo[i].pressure > 0)
+			//	one_touch_input_flag++;//hugh 0312
 #ifdef CONFIG_MACH_AEGIS
 			printk("x=%d,y=%d,z=%d,id=%d\n",fingerInfo[i].x,fingerInfo[i].y,fingerInfo[i].pressure,i);
 #endif

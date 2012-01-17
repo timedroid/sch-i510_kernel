@@ -14,7 +14,7 @@ checkfail(){
 DATE=$(date +%m%d)
 HOSTCC="ccache gcc"
 CROSS_COMPILE="ccache /opt/toolchains/arm-2010q1/bin/arm-none-eabi-"
-KERNEL_MODULES="crypto/ansi_cprng.ko drivers/bluetooth/bthid/bthid.ko drivers/cdma_dpram/dpram.ko drivers/ltespi/ltespi.ko drivers/misc/samsung_modemctl/modemctl/modemctl.ko drivers/misc/samsung_modemctl/onedram/onedram.ko drivers/misc/samsung_modemctl/svnet/svnet.ko drivers/misc/vibetonz/vibrator.ko drivers/scsi/scsi_wait_scan.ko drivers/wtlfota_dpram/wtlfota_dpram.ko drivers/net/wireless/bcm4329/dhd.ko drivers/staging/android/logger.ko"
+KERNEL_MODULES="crypto/ansi_cprng.ko drivers/bluetooth/bthid/bthid.ko drivers/cdma_dpram/dpram.ko drivers/ltespi/ltespi.ko drivers/misc/samsung_modemctl/modemctl/modemctl.ko drivers/misc/samsung_modemctl/onedram/onedram.ko drivers/misc/samsung_modemctl/svnet/svnet.ko drivers/misc/vibetonz/vibrator.ko drivers/scsi/scsi_wait_scan.ko drivers/wtlfota_dpram/wtlfota_dpram.ko drivers/net/wireless/bcm4329/bcm4329.ko drivers/staging/android/logger.ko"
 
 # execution!
 
