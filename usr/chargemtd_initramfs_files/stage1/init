@@ -2,6 +2,20 @@
 export _PATH="$PATH"
 export PATH=/stage1
 
+mkdir -p /dev/block
+mknod -m 0644 /dev/block/mtdblock0 b 31 0
+mknod -m 0644 /dev/block/mtdblock1 b 31 1
+mknod -m 0644 /dev/block/mtdblock2 b 31 2
+mknod -m 0644 /dev/block/mtdblock3 b 31 3
+mknod -m 0644 /dev/block/mtdblock4 b 31 4
+mknod -m 0644 /dev/block/mtdblock5 b 31 5
+mknod -m 0644 /dev/block/mtdblock6 b 31 6
+mknod -m 0644 /dev/block/mtdblock7 b 31 7
+
+mknod -m 0644 /dev/block/mmcblk0 b 179 0
+mknod -m 0644 /dev/block/mmcblk0p1 b 179 1
+mknod -m 0644 /dev/block/mmcblk0p3 b 179 3
+
 busybox mount -o remount,rw /
 busybox cd /
 busybox date >>boot.txt
@@ -10,7 +24,7 @@ busybox rm init
 busybox mount -t proc proc /proc
 busybox mount -t sysfs sysfs /sys
 
-bml_over_mtd dump boot 72 reservoir 2004 /stage1/boot.bin
+bml_over_mtd dump boot 84 reservoir 2004 /stage1/boot.bin
 
 eval $(busybox grep -m 1 -A 1 BOOT_IMAGE_OFFSETS /stage1/boot.bin | busybox tail -n 1)
 
@@ -18,7 +32,7 @@ load_offset=$boot_offset
 load_len=$boot_len
 
 busybox mount -t yaffs2 /dev/block/mtdblock2 /system
-busybox mount -t yaffs2 /dev/block/mtdblock3 /cache
+busybox mount -t ext4 /dev/block/mmcblk0p3 /cache
 
 if busybox test -e /cache/.startrecovery || busybox grep -q bootmode=2 /proc/cmdline ; then
 	# recovery boot
@@ -31,8 +45,9 @@ if busybox test -e /cache/.startrecovery || busybox grep -q bootmode=2 /proc/cmd
 elif ! busybox test -e /system/build.prop ; then
 	# emergency boot
         busybox umount /cache
-        erase_image cache
-        busybox mount -t yaffs2 /dev/block/mtdblock3 /cache
+        make_ext4fs -b 4096 -g 32768 -i 8192 -I 256 -a /cache /dev/block/mmcblk0p3
+        busybox mount -t ext4 /dev/block/mmcblk0p3 /cache
+
         busybox mkdir /cache/recovery
 
 	busybox mount -t vfat /dev/block/mmcblk0p1 /sdcard	
