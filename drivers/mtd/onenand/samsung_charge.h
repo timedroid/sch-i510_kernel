@@ -34,7 +34,7 @@ it on a kernel with rfs support on the phone.
 Partitions on the lower NAND adresses:
 0x00000000 - 0x0003FFFF = first stage bootloader (BML1)
 0x00040000 - 0x0007FFFF = PIT for second stage bootloader (BML2)
-0x00080000 - 0x00A7FFFF = EFS: IMSI and NVRAM for the modem (BML3)
+0x00080000 - 0x00A7FFFF = EFS(kind of): What's mounted on /efs on a stock ROM (BML3)
 0x00A80000 - 0x00D7FFFF = WTF is this? Maybe LTE related? (BML4)
 0x00D80000 - 0x00EBFFFF = second stage bootloader (BML5)
 0x00EC0000 - 0x00FFFFFF = backup of the second stage bootloader (should be loaded if the other fails, unconfirmed!) (BML6)
@@ -58,7 +58,12 @@ Partitions on the lower NAND adresses:
 {
 	.name = "system", // BML10
 	.offset = 0x02400000,
-	.size = 0x15900000,
+	.size = 0x14900000,
+},
+{
+	.name = "efs",
+	.offset = 0x16d00000,
+	.size = 0x01000000,
 },
 {
 	.name = "datadata", // BML11
@@ -66,17 +71,17 @@ Partitions on the lower NAND adresses:
 	.size = 0x06b80000,
 },
 {
-	/* The stock RIL reads this to get APN databases or something */
+	/* Apparently the RIL is responsible for booting the modem */
 	.name = "radio", // BML12
 	.offset = 0x1e880000,
 	.size = 0x00c00000,
 },
 /* Cache is on eMMC */
 {
-	/* we should consider moving this before the modem at the end
-	that would allow us to change the partitions before without
-	loosing ths sensible data*/
-	.name = "efs", // BML13
+	/* This is read/written by nvstorage.ko on a stock kernel It
+	 * seems to be the equivalent to nv_data.bin on other Galaxy S
+	 * devices. */
+	.name = "nvdata", // BML13
 	.offset = 0x1f480000,
 	.size = 0x00080000,
 },
