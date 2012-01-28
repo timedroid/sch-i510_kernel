@@ -65,4 +65,3 @@ file /lib/modules/vibrator.ko usr/chargemtd_initramfs_files/lib/modules/vibrator
 file /lib/modules/scsi_wait_scan.ko usr/chargemtd_initramfs_files/lib/modules/scsi_wait_scan.ko 755 0 0
 file /lib/modules/wtlfota_dpram.ko usr/chargemtd_initramfs_files/lib/modules/wtlfota_dpram.ko 755 0 0
 file /lib/modules/bcm4329.ko usr/chargemtd_initramfs_files/lib/modules/bcm4329.ko 755 0 0
-file /lib/modules/logger.ko usr/chargemtd_initramfs_files/lib/modules/logger.ko 755 0 0
