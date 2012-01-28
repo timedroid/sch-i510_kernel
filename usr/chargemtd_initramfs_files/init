@@ -34,13 +34,13 @@ elif ! busybox test -e /system/build.prop ; then
         busybox mount -t ext4 /dev/block/mmcblk0p3 /cache
         busybox mkdir /cache/recovery
 
-	busybox mount -t vfat /dev/block/mmcblk0p1 /sdcard	
+	#busybox mount -t vfat /dev/block/mmcblk0p1 /sdcard	
 
-	UPDATE=$(busybox cat /sdcard/cyanogenmod.cfg)
+	#UPDATE=$(busybox cat /sdcard/cyanogenmod.cfg)
 
-	if busybox test -e $UPDATE ; then
-		busybox echo "install_zip(\"`echo $UPDATE`\");" > /cache/recovery/extendedcommand
-  	fi
+	#if busybox test -e $UPDATE ; then
+	#	busybox echo "install_zip(\"`echo $UPDATE`\");" > /cache/recovery/extendedcommand
+  	#fi
 
 	load_offset=$recovery_offset
 	load_len=$recovery_len
